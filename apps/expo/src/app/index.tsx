@@ -1,12 +1,11 @@
-import { useState } from "react";
+import type { RouterOutputs } from "@/utils/api";
+import React, { useState } from "react";
 import { Button, Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, Stack } from "expo-router";
+import { api } from "@/utils/api";
+import { authClient, signIn, signOut } from "@/utils/auth";
 import { FlashList } from "@shopify/flash-list";
-
-import type { RouterOutputs } from "~/utils/api";
-import { api } from "~/utils/api";
-import { authClient, signIn, signOut } from "~/utils/auth";
 
 function PostCard(props: {
   post: RouterOutputs["post"]["all"][number];
@@ -103,10 +102,14 @@ function MobileAuth() {
         {session?.user.name ?? "Not logged in"}
       </Text>
       <Button
-        onPress={() => (session ? signOut() : signIn.social({
-          provider: "discord",
-          callbackURL: "/",
-        }))}
+        onPress={() =>
+          session
+            ? signOut()
+            : signIn.social({
+                provider: "discord",
+                callbackURL: "/",
+              })
+        }
         title={session ? "Sign Out" : "Sign In With Discord"}
         color={"#5B65E9"}
       />
