@@ -1,8 +1,8 @@
-import { getSession } from "@acme/auth";
-import { Button } from "@acme/ui/button";
 import { headers } from "next/headers";
-import { auth } from "@acme/auth";
 import { redirect } from "next/navigation";
+
+import { auth, getSession } from "@acme/auth";
+import { Button } from "@acme/ui/button";
 
 export async function AuthShowcase() {
   const session = await getSession();
@@ -13,13 +13,14 @@ export async function AuthShowcase() {
           size="lg"
           formAction={async () => {
             "use server";
-            const res = await auth.api.signInSocial({
+            const { url } = await auth.api.signInSocial({
               body: {
                 provider: "discord",
-                callbackURL: "/"
+                callbackURL: "/",
               },
             });
-            redirect(res.url)
+
+            redirect(url ?? "/");
           }}
         >
           Sign in with Discord
@@ -42,7 +43,7 @@ export async function AuthShowcase() {
             await auth.api.signOut({
               headers: headers(),
             });
-            throw redirect("/")
+            return redirect("/");
           }}
         >
           Sign out
