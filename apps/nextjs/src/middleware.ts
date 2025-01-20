@@ -1,6 +1,6 @@
 import { authMiddleware } from "@acme/auth/middleware";
 
-export default authMiddleware
+export default authMiddleware;
 
 // Read more: https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 export const config = {

@@ -19,7 +19,7 @@ export { type RouterInputs, type RouterOutputs } from "@acme/api";
  * A wrapper for your app that provides the TRPC context.
  * Use only in _app.tsx
  */
-export function TRPCProvider(props: { children: React.ReactNode }) {
+export function TRPCProvider({ children }: React.PropsWithChildren) {
   const [queryClient] = useState(() => new QueryClient());
   const [trpcClient] = useState(() =>
     api.createClient({
@@ -49,9 +49,7 @@ export function TRPCProvider(props: { children: React.ReactNode }) {
 
   return (
     <api.Provider client={trpcClient} queryClient={queryClient}>
-      <QueryClientProvider client={queryClient}>
-        {props.children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </api.Provider>
   );
 }
