@@ -1,0 +1,30 @@
+import { relations } from "drizzle-orm";
+import { date, pgTable, text } from "drizzle-orm/pg-core";
+
+import { appointments } from "./appointments";
+import { stores } from "./stores";
+
+export const clients = pgTable("clients", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  phone: text("phone").notNull(),
+  birthDate: date("birth_date").notNull(),
+  cpf: text("cpf"),
+  email: text("email"),
+  address: text("address"),
+
+  storeId: text("store_id")
+    .notNull()
+    .references(() => stores.id),
+});
+
+export const clientsRelations = relations(clients, ({ one, many }) => ({
+  store: one(stores, {
+    fields: [clients.storeId],
+    references: [stores.id],
+  }),
+  appointments: many(appointments, { relationName: "clientAppointments" }),
+}));
+
+export type Client = typeof clients.$inferSelect;
+export type NewClientt = typeof clients.$inferInsert;

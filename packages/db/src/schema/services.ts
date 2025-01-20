@@ -1,0 +1,41 @@
+import { relations } from "drizzle-orm";
+import { decimal, integer, pgTable, text } from "drizzle-orm/pg-core";
+
+import { appointments, employeeServices, stores } from ".";
+
+export const services = pgTable("services", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  price: decimal("price").notNull(),
+  description: text("description"),
+  estimatedTime: integer("estimated_time").notNull(),
+  image: text("image"),
+
+  categoryId: text("category_id")
+    .notNull()
+    .references(() => categories.id),
+  storeId: text("store_id")
+    .notNull()
+    .references(() => stores.id),
+});
+
+export const servicesRelations = relations(services, ({ one, many }) => ({
+  store: one(stores, {
+    fields: [services.storeId],
+    references: [stores.id],
+  }),
+  category: one(categories, {
+    fields: [services.storeId],
+    references: [categories.id],
+  }),
+  appointments: many(appointments, { relationName: "serviceAppointments" }),
+  employeeServices: many(employeeServices),
+}));
+
+export type Service = typeof services.$inferSelect;
+export type NewService = typeof services.$inferInsert;
+
+export const categories = pgTable("categories", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+});
