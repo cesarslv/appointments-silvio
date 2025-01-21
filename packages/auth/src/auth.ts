@@ -2,6 +2,7 @@ import type { BetterAuthOptions } from "better-auth";
 import { expo } from "@better-auth/expo";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { nextCookies } from "better-auth/next-js";
 import { oAuthProxy } from "better-auth/plugins";
 
 import { db } from "@acme/db/client";
@@ -13,8 +14,25 @@ export const config = {
     provider: "pg",
     usePlural: true,
   }),
+  emailAndPassword: {
+    enabled: true,
+    async sendResetPassword({ user, url }) {
+      console.log(
+        "Sending reset password email to",
+        user.email,
+        "with url",
+        url,
+      );
+    },
+  },
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60,
+    },
+  },
   secret: env.AUTH_SECRET,
-  plugins: [expo(), oAuthProxy()],
+  plugins: [expo(), oAuthProxy(), nextCookies()],
 } satisfies BetterAuthOptions;
 
 export const auth = betterAuth(config);
