@@ -1,10 +1,10 @@
 import { relations } from "drizzle-orm";
-import { decimal, pgTable, text } from "drizzle-orm/pg-core";
+import { decimal, pgTable, text, uuid } from "drizzle-orm/pg-core";
 
 import { employees, services } from ".";
 
 export const employeeServices = pgTable("employee_services", {
-  id: text("id").primaryKey(),
+  id: uuid().notNull().primaryKey().defaultRandom(),
   commission: decimal("commission").notNull(),
 
   employeeId: text("employee_id")

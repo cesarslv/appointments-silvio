@@ -1,10 +1,10 @@
 import { relations } from "drizzle-orm";
-import { boolean, pgTable, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 import { clients, employees, services, stores } from ".";
 
 export const appointments = pgTable("appointments", {
-  id: text("id").primaryKey(),
+  id: uuid().notNull().primaryKey().defaultRandom(),
   date: timestamp("date").notNull(),
   status: text("status").notNull(),
   checkIn: boolean("check_in").notNull(),

@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { pgTable, text } from "drizzle-orm/pg-core";
+import { pgTable, text, uuid } from "drizzle-orm/pg-core";
 
 import {
   addresses,
@@ -11,7 +11,7 @@ import {
 } from ".";
 
 export const stores = pgTable("stores", {
-  id: text("id").primaryKey(),
+  id: uuid().notNull().primaryKey().defaultRandom(),
   name: text("name").notNull(),
   logo: text("logo"),
   workingHours: text("working_hours"),

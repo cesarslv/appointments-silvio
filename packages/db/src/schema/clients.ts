@@ -1,11 +1,11 @@
 import { relations } from "drizzle-orm";
-import { date, pgTable, text } from "drizzle-orm/pg-core";
+import { date, pgTable, text, uuid } from "drizzle-orm/pg-core";
 
 import { appointments } from "./appointments";
 import { stores } from "./stores";
 
 export const clients = pgTable("clients", {
-  id: text("id").primaryKey(),
+  id: uuid().notNull().primaryKey().defaultRandom(),
   name: text("name").notNull(),
   phone: text("phone").notNull(),
   birthDate: date("birth_date").notNull(),
