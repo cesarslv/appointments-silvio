@@ -2,7 +2,7 @@
 
 import type { z } from "zod";
 import * as React from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -27,6 +27,7 @@ type Inputs = z.infer<typeof resetPasswordSchema>;
 export function ResetPasswordForm() {
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
+  const searchParams = useSearchParams();
 
   // react-hook-form
   const form = useForm<Inputs>({
@@ -40,10 +41,20 @@ export function ResetPasswordForm() {
   async function onSubmit(inputs: Inputs) {
     setLoading(true);
 
+    const token = searchParams.get("token");
+
+    if (!token) {
+      toast.error("Token não encontrado.");
+      router.push("/forgot-password");
+      return;
+    }
+
     try {
       const { data, error } = await authClient.resetPassword({
         newPassword: inputs.password,
+        token,
       });
+
       if (error) {
         toast.error(error.message);
       }
