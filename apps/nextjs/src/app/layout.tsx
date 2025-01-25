@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { cn } from "@/lib/utils";
 import { TRPCReactProvider } from "@/trpc/react";
@@ -49,7 +50,9 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <TRPCReactProvider>{props.children}</TRPCReactProvider>
+        <NuqsAdapter>
+          <TRPCReactProvider>{props.children}</TRPCReactProvider>
+        </NuqsAdapter>
         <Toaster richColors />
       </body>
     </html>

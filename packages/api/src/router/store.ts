@@ -4,6 +4,7 @@ import { z } from "zod";
 import { eq } from "@acme/db";
 import { db } from "@acme/db/client";
 import { stores } from "@acme/db/schema";
+import { updateStoreSchema } from "@acme/validators";
 
 import { protectedProcedure } from "../trpc";
 
@@ -71,11 +72,8 @@ export const storeRoute = {
 
   update: protectedProcedure
     .input(
-      z.object({
+      updateStoreSchema.extend({
         storeId: z.string(),
-        name: z.string().min(1),
-        logo: z.string().optional(),
-        workingHours: z.string().optional(),
       }),
     )
     .mutation(async ({ input }) => {
@@ -84,6 +82,7 @@ export const storeRoute = {
         .set({
           name: input.name,
           logo: input.logo,
+          slug: input.slug,
           workingHours: input.workingHours,
         })
         .where(eq(stores.id, input.storeId))

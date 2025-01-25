@@ -36,3 +36,10 @@ export const resetPasswordSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+export const updateStoreSchema = z.object({
+  name: z.string().optional(),
+  logo: z.string().optional(),
+  slug: z.string().optional(),
+  workingHours: z.string().optional(),
+});
