@@ -73,12 +73,11 @@ export default tseslint.config(
           allowConstantLoopConditions: true,
         },
       ],
-      "@typescript-eslint/no-non-null-assertion": "error",
+      "@typescript-eslint/no-non-null-assertion": "off",
       "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
       "@typescript-eslint/no-unsafe-call": "off",
       "@typescript-eslint/no-unsafe-assignment": "off",
       "@typescript-eslint/no-unsafe-member-access": "off",
-      "@typescript-eslint/non-null-assertion": "off",
     },
   },
   {

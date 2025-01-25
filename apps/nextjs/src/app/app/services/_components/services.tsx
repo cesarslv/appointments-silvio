@@ -1,6 +1,7 @@
 "use client";
 
 import { useQueryState } from "nuqs";
+import { toast } from "sonner";
 
 import {
   Breadcrumb,
@@ -14,6 +15,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/trpc/react";
 import { CreateCategoryButton } from "./create-category-button";
 import { CreateServiceButton } from "./create-service-button";
+import { ServiceCard } from "./service-card";
 
 export function Services() {
   const [services] = api.service.all.useSuspenseQuery();
@@ -33,6 +35,15 @@ export function Services() {
       title: "Categorias",
     },
   ];
+
+  const apiUtils = api.useUtils();
+
+  const deleteMutation = api.service.delete.useMutation({
+    onSuccess: () => {
+      toast.success("Serviço excluído");
+      void apiUtils.service.all.invalidate();
+    },
+  });
 
   const servicesEmpty = services.length < 1;
   const categoriesEmpty = categories.length < 1;
@@ -72,15 +83,24 @@ export function Services() {
         </TabsList>
 
         <TabsContent value="service">
-          <div className="mt-8 max-w-2xl">
+          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {services.map((service) => (
-              <div key={service.id}>
-                <h2>{service.name}</h2>
-              </div>
+              <ServiceCard
+                key={service.id}
+                service={service}
+                deleteIsPending={deleteMutation.isPending}
+                onDelete={(id) => {
+                  deleteMutation.mutate({
+                    serviceId: id,
+                  });
+                }}
+                onEdit={(service) => {
+                  console.log(service);
+                }}
+              />
             ))}
-
-            {servicesEmpty ? "Nenhum serviço cadastrado" : null}
           </div>
+          {servicesEmpty ? "Nenhum serviço cadastrado" : null}
         </TabsContent>
 
         <TabsContent value="category">

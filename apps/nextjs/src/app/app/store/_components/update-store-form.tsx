@@ -54,7 +54,6 @@ export function UpdateStoreForm({ store }: { store: Store }) {
   async function onSubmit(inputs: Inputs) {
     await updateMutation.mutateAsync({
       slug: inputs.slug,
-      storeId: store.id,
       name: inputs.name,
     });
   }

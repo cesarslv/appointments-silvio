@@ -49,6 +49,7 @@ export function CreateCategoryButton() {
       toast.success("Categoria criada.");
       void apiUtils.category.all.invalidate();
       setOpen(false);
+      form.reset();
     },
   });
 

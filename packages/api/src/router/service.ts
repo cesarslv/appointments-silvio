@@ -1,5 +1,7 @@
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
+import { eq } from "@acme/db";
 import { db } from "@acme/db/client";
 import { services } from "@acme/db/schema";
 import { createStoreSchema } from "@acme/validators";
@@ -38,6 +40,16 @@ export const serviceRoute = {
           message: "Failed to create store",
         });
       }
+
+      return service;
+    }),
+  delete: protectedProcedure
+    .input(z.object({ serviceId: z.string() }))
+    .mutation(async ({ input }) => {
+      const [service] = await db
+        .delete(services)
+        .where(eq(services.id, input.serviceId))
+        .returning({ id: services.id });
 
       return service;
     }),

@@ -21,7 +21,8 @@
     "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
-    "typecheck": "turbo run typecheck"
+    "typecheck": "turbo run typecheck",
+    "check": "pnpm run format:fix && pnpm run lint:fix && pnpm run typecheck"
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:*",

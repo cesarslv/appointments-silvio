@@ -66,6 +66,7 @@ export function CreateServiceButton({
       toast.success("Mudanças salvas.");
       void apiUtils.service.all.invalidate();
       setOpen(false);
+      form.reset();
     },
   });
 
