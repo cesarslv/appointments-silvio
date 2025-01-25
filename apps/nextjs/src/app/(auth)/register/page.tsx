@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 
+import { SignUpForm } from "@/app/(auth)/_components/signup-form";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@acme/ui/card";
-
-import { SignUpForm } from "@/app/(auth)/_components/signup-form";
+} from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Cadastrar-se",

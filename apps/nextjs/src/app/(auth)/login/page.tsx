@@ -1,12 +1,11 @@
+import { LoginForm } from "@/app/(auth)/_components/login-form";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@acme/ui/card";
-
-import { LoginForm } from "@/app/(auth)/_components/login-form";
+} from "@/components/ui/card";
 
 export default function LoginPage() {
   return (

@@ -16,6 +16,7 @@ export const config = {
   }),
   emailAndPassword: {
     enabled: true,
+    // eslint-disable-next-line @typescript-eslint/require-await
     async sendResetPassword({ user, url }) {
       console.log(
         "Sending reset password email to",

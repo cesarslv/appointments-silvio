@@ -9,7 +9,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { authClient } from "@acme/auth/client";
-import { Button } from "@acme/ui/button";
+import { resetPasswordSchema } from "@acme/validators";
+
+import { PasswordInput } from "@/components/password-input";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,10 +20,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@acme/ui/form";
-import { resetPasswordSchema } from "@acme/validators";
-
-import { PasswordInput } from "@/components/password-input";
+} from "@/components/ui/form";
 
 type Inputs = z.infer<typeof resetPasswordSchema>;
 

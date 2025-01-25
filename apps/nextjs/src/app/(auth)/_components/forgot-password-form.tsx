@@ -9,7 +9,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { authClient } from "@acme/auth/client";
-import { Button } from "@acme/ui/button";
+import { checkEmailSchema } from "@acme/validators";
+
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,9 +19,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@acme/ui/form";
-import { Input } from "@acme/ui/input";
-import { checkEmailSchema } from "@acme/validators";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 type Inputs = z.infer<typeof checkEmailSchema>;
 

@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 
+import { ResetPasswordForm } from "@/app/(auth)/_components/reset-password-form";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@acme/ui/card";
-
-import { ResetPasswordForm } from "@/app/(auth)/_components/reset-password-form";
+} from "@/components/ui/card";
 
 export const metadata: Metadata = {
   title: "Esqueci a Senha",

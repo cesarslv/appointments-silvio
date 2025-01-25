@@ -6,8 +6,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@acme/ui/card";
-
+} from "@/components/ui/card";
 import { ForgotPasswordForm } from "../_components/forgot-password-form";
 
 export const metadata: Metadata = {
