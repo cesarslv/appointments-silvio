@@ -71,21 +71,16 @@ export const storeRoute = {
     }),
 
   update: protectedProcedure
-    .input(
-      updateStoreSchema.extend({
-        storeId: z.string(),
-      }),
-    )
-    .mutation(async ({ input }) => {
+    .input(updateStoreSchema)
+    .mutation(async ({ input, ctx }) => {
       const [org] = await db
         .update(stores)
         .set({
           name: input.name,
           logo: input.logo,
           slug: input.slug,
-          workingHours: input.workingHours,
         })
-        .where(eq(stores.id, input.storeId))
+        .where(eq(stores.id, ctx.storeId))
         .returning({
           id: stores.id,
         });

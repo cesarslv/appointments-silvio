@@ -1,5 +1,4 @@
 import { TRPCError } from "@trpc/server";
-import { z } from "zod";
 
 import { db } from "@acme/db/client";
 import { services } from "@acme/db/schema";
@@ -9,19 +8,8 @@ import { protectedProcedure } from "../trpc";
 
 export const serviceRoute = {
   all: protectedProcedure.query(async ({ ctx }) => {
-    const org = await db.query.stores.findFirst({
-      where: (table, { eq }) => eq(table.userId, ctx.session.user.id),
-    });
-
-    if (!org) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Store not found",
-      });
-    }
-
     const services = await db.query.services.findMany({
-      where: (table, { eq }) => eq(table.storeId, org.id),
+      where: (table, { eq }) => eq(table.storeId, ctx.storeId),
     });
 
     return services;
@@ -30,17 +18,6 @@ export const serviceRoute = {
   create: protectedProcedure
     .input(createStoreSchema)
     .mutation(async ({ input, ctx }) => {
-      const store = await db.query.stores.findFirst({
-        where: (table, { eq }) => eq(table.userId, ctx.session.user.id),
-      });
-
-      if (!store) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Store not found",
-        });
-      }
-
       const [service] = await db
         .insert(services)
         .values({
@@ -49,7 +26,7 @@ export const serviceRoute = {
           description: input.description,
           estimatedTime: Number(input.estimatedTime),
           categoryId: input.categoryId,
-          storeId: store.id,
+          storeId: ctx.storeId,
         })
         .returning({
           id: services.id,

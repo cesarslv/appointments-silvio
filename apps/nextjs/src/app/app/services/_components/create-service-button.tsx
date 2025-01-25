@@ -54,7 +54,8 @@ export function CreateServiceButton({
       name: "",
       categoryId: "",
       description: "",
-      estimatedTime: "",
+      price: "",
+      estimatedTime: 900,
     },
   });
 
@@ -64,6 +65,7 @@ export function CreateServiceButton({
     onSuccess: () => {
       toast.success("Mudanças salvas.");
       void apiUtils.service.all.invalidate();
+      setOpen(false);
     },
   });
 
@@ -121,10 +123,45 @@ export function CreateServiceButton({
                     </FormControl>
                     <SelectContent>
                       {categories.map((category) => (
-                        <SelectItem value={category.id}>
+                        <SelectItem key={category.id} value={category.id}>
                           {category.name}
                         </SelectItem>
                       ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="estimatedTime"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Tem estimado do serviço</FormLabel>
+                  <Select
+                    onValueChange={(e) => {
+                      field.onChange(Number(e));
+                    }}
+                    defaultValue={field.value.toString()}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="900">15 minutos</SelectItem>
+                      <SelectItem value="1200">20 minutos</SelectItem>
+                      <SelectItem value="1500">25 minutos</SelectItem>
+                      <SelectItem value="1800">30 minutos</SelectItem>
+                      <SelectItem value="2100">35 minutos</SelectItem>
+                      <SelectItem value="2400">40 minutos</SelectItem>
+                      <SelectItem value="2700">45 minutos</SelectItem>
+                      <SelectItem value="3000">50 minutos</SelectItem>
+                      <SelectItem value="3300">55 minutos</SelectItem>
+                      <SelectItem value="3600">1 hora</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -139,21 +176,17 @@ export function CreateServiceButton({
                 <FormItem className="w-full">
                   <FormLabel>Valor do serviço</FormLabel>
                   <FormControl>
-                    <Input value={field.value} onChange={field.onChange} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="estimatedTime"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Tem estimado do serviço</FormLabel>
-                  <FormControl>
-                    <Input value={field.value} onChange={field.onChange} />
+                    <div className="relative">
+                      <Input
+                        {...field}
+                        className="-me-px rounded-e-none ps-8 shadow-none"
+                        placeholder="0.00"
+                        type="text"
+                      />
+                      <span className="pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 text-sm text-muted-foreground peer-disabled:opacity-50">
+                        R$
+                      </span>
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

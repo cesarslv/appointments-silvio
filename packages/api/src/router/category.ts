@@ -8,19 +8,8 @@ import { protectedProcedure } from "../trpc";
 
 export const categoryRoute = {
   all: protectedProcedure.query(async ({ ctx }) => {
-    const org = await db.query.stores.findFirst({
-      where: (table, { eq }) => eq(table.userId, ctx.session.user.id),
-    });
-
-    if (!org) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Store not found",
-      });
-    }
-
     const categories = await db.query.categories.findMany({
-      where: (table, { eq }) => eq(table.storeId, org.id),
+      where: (table, { eq }) => eq(table.storeId, ctx.storeId),
     });
 
     return categories;
@@ -29,22 +18,11 @@ export const categoryRoute = {
   create: protectedProcedure
     .input(createCategorySchema)
     .mutation(async ({ input, ctx }) => {
-      const store = await db.query.stores.findFirst({
-        where: (table, { eq }) => eq(table.userId, ctx.session.user.id),
-      });
-
-      if (!store) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Store not found",
-        });
-      }
-
       const [category] = await db
         .insert(categories)
         .values({
           name: input.name,
-          storeId: store.id,
+          storeId: ctx.storeId,
         })
         .returning({
           id: categories.id,
