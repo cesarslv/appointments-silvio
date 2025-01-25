@@ -13,6 +13,7 @@ import {
 export const stores = pgTable("stores", {
   id: uuid().notNull().primaryKey().defaultRandom(),
   name: text("name").notNull(),
+  slug: text("slug").unique().notNull(),
   logo: text("logo"),
   workingHours: text("working_hours"),
 

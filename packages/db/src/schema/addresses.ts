@@ -10,7 +10,7 @@ export const addresses = pgTable("addresses", {
   state: text("state").notNull(),
   zipCode: text("zip_code").notNull(),
 
-  storeId: text("store_id")
+  storeId: uuid("store_id")
     .notNull()
     .references(() => stores.id),
 });

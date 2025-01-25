@@ -10,7 +10,7 @@ export const employees = pgTable("employees", {
   photo: text("photo"),
   workingDays: text("working_days"),
 
-  storeId: text("store_id")
+  storeId: uuid("store_id")
     .notNull()
     .references(() => stores.id),
 });

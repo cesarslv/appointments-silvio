@@ -9,16 +9,16 @@ export const appointments = pgTable("appointments", {
   status: text("status").notNull(),
   checkIn: boolean("check_in").notNull(),
 
-  storeId: text("store_id")
+  storeId: uuid("store_id")
     .notNull()
     .references(() => stores.id),
-  serviceId: text("service_id")
+  serviceId: uuid("service_id")
     .notNull()
     .references(() => services.id),
-  employeeId: text("employee_id")
+  employeeId: uuid("employee_id")
     .notNull()
     .references(() => employees.id),
-  clientId: text("client_id")
+  clientId: uuid("client_id")
     .notNull()
     .references(() => clients.id),
 });

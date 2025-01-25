@@ -1,0 +1,79 @@
+"use client";
+
+import * as React from "react";
+import { Calendar, Command, Home, Inbox, Search, Settings } from "lucide-react";
+
+import { NavMain } from "@/app/app/_components/nav-main";
+import { NavUser } from "@/app/app/_components/nav-user";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarRail,
+} from "@/components/ui/sidebar";
+import { api } from "@/trpc/react";
+
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [store] = api.store.getByUserId.useSuspenseQuery();
+
+  return (
+    <Sidebar collapsible="icon" {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <a href="#">
+                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <Command className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">{store.name}</span>
+                  <span className="truncate text-xs">{store.slug}</span>
+                </div>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <NavMain
+          items={[
+            {
+              title: "Home",
+              url: "#",
+              icon: Home,
+            },
+            {
+              title: "Inbox",
+              url: "#",
+              icon: Inbox,
+            },
+            {
+              title: "Calendar",
+              url: "#",
+              icon: Calendar,
+            },
+            {
+              title: "Search",
+              url: "#",
+              icon: Search,
+            },
+            {
+              title: "Settings",
+              url: "#",
+              icon: Settings,
+            },
+          ]}
+        />
+      </SidebarContent>
+      <SidebarFooter>
+        <NavUser />
+      </SidebarFooter>
+      <SidebarRail />
+    </Sidebar>
+  );
+}

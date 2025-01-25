@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { decimal, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { decimal, pgTable, uuid } from "drizzle-orm/pg-core";
 
 import { employees, services } from ".";
 
@@ -7,10 +7,10 @@ export const employeeServices = pgTable("employee_services", {
   id: uuid().notNull().primaryKey().defaultRandom(),
   commission: decimal("commission").notNull(),
 
-  employeeId: text("employee_id")
+  employeeId: uuid("employee_id")
     .notNull()
     .references(() => employees.id),
-  serviceId: text("service_id")
+  serviceId: uuid("service_id")
     .notNull()
     .references(() => services.id),
 });

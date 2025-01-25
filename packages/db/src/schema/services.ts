@@ -11,10 +11,10 @@ export const services = pgTable("services", {
   estimatedTime: integer("estimated_time").notNull(),
   image: text("image"),
 
-  categoryId: text("category_id")
+  categoryId: uuid("category_id")
     .notNull()
     .references(() => categories.id),
-  storeId: text("store_id")
+  storeId: uuid("store_id")
     .notNull()
     .references(() => stores.id),
 });
@@ -36,6 +36,6 @@ export type Service = typeof services.$inferSelect;
 export type NewService = typeof services.$inferInsert;
 
 export const categories = pgTable("categories", {
-  id: text("id").primaryKey(),
+  id: uuid().notNull().primaryKey().defaultRandom(),
   name: text("name").notNull(),
 });

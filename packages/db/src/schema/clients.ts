@@ -13,7 +13,7 @@ export const clients = pgTable("clients", {
   email: text("email"),
   address: text("address"),
 
-  storeId: text("store_id")
+  storeId: uuid("store_id")
     .notNull()
     .references(() => stores.id),
 });

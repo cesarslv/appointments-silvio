@@ -8,6 +8,7 @@ import { oAuthProxy } from "better-auth/plugins";
 import { db } from "@acme/db/client";
 
 import { env } from "../env";
+import { createDefaultOrganization } from "./hooks";
 
 export const config = {
   database: drizzleAdapter(db, {
@@ -24,6 +25,15 @@ export const config = {
         "with url",
         url,
       );
+    },
+  },
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await createDefaultOrganization(user);
+        },
+      },
     },
   },
   session: {
