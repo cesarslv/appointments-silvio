@@ -1,7 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { Calendar, Command, Home, Inbox, Search, Settings } from "lucide-react";
+import { useSelectedLayoutSegments } from "next/navigation";
+import {
+  Calendar,
+  Command,
+  ContactRound,
+  HammerIcon,
+  LayoutDashboard,
+  Store,
+  Users,
+} from "lucide-react";
 
 import { NavMain } from "@/app/app/_components/nav-main";
 import { NavUser } from "@/app/app/_components/nav-user";
@@ -18,6 +27,8 @@ import {
 import { api } from "@/trpc/react";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const segments = useSelectedLayoutSegments();
+
   const [store] = api.store.getByUserId.useSuspenseQuery();
 
   return (
@@ -43,29 +54,40 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain
           items={[
             {
-              title: "Home",
-              url: "#",
-              icon: Home,
+              title: "Dashboard",
+              url: "/app",
+              icon: LayoutDashboard,
+              isActive: segments.length === 0,
             },
             {
-              title: "Inbox",
-              url: "#",
-              icon: Inbox,
-            },
-            {
-              title: "Calendar",
-              url: "#",
+              title: "Agenda",
+              url: "/app/calendar",
               icon: Calendar,
+              isActive: segments.includes("calendar"),
             },
             {
-              title: "Search",
-              url: "#",
-              icon: Search,
+              title: "Serviços",
+              url: "/app/services",
+              icon: HammerIcon,
+              isActive: segments.includes("services"),
             },
             {
-              title: "Settings",
-              url: "#",
-              icon: Settings,
+              title: "Funcionários",
+              url: "/app/employees",
+              icon: ContactRound,
+              isActive: segments.includes("employees"),
+            },
+            {
+              title: "Clientes",
+              url: "/app/clients",
+              icon: Users,
+              isActive: segments.includes("clients"),
+            },
+            {
+              title: "Loja",
+              url: "/app/store",
+              icon: Store,
+              isActive: segments.includes("store"),
             },
           ]}
         />
