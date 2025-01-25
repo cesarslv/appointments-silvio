@@ -43,3 +43,15 @@ export const updateStoreSchema = z.object({
   slug: z.string().optional(),
   workingHours: z.string().optional(),
 });
+
+export const createStoreSchema = z.object({
+  categoryId: z.string(),
+  name: z.string(),
+  price: z.string(),
+  estimatedTime: z.string(),
+  description: z.string().optional(),
+});
+
+export const createCategorySchema = z.object({
+  name: z.string(),
+});
