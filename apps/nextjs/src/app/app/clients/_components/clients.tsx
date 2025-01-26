@@ -18,7 +18,6 @@ export default function Clients() {
   const [clients] = api.clientR.all.useSuspenseQuery();
 
   const apiUtils = api.useUtils();
-
   const deleteMutation = api.clientR.delete.useMutation({
     onSuccess: () => {
       toast.success("Cliente excluído");

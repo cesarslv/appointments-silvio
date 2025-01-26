@@ -49,7 +49,7 @@ export function CreateEmployeeButton() {
 
   const createMutation = api.employee.create.useMutation({
     onSuccess: () => {
-      toast.success("Mudanças salvas.");
+      toast.success("Funcionário atualizado.");
       void apiUtils.employee.all.invalidate();
       setOpen(false);
       form.reset();

@@ -61,7 +61,7 @@ export function CreateClientButton() {
 
   const createMutation = api.clientR.create.useMutation({
     onSuccess: () => {
-      toast.success("Categoria criada.");
+      toast.success("Cliente adicionado.");
       void apiUtils.clientR.all.invalidate();
       setOpen(false);
       form.reset();

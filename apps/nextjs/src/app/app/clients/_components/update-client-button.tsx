@@ -68,7 +68,7 @@ export function UpdateClientButton({
 
   const updateMutation = api.clientR.update.useMutation({
     onSuccess: () => {
-      toast.success("Categoria criada.");
+      toast.success("Cliente atualizado.");
       void apiUtils.clientR.all.invalidate();
       setOpen(false);
       form.reset();

@@ -62,7 +62,7 @@ export function CreateEmployeeServiceButton({
 
   const createMutation = api.employee.createEmployeeService.useMutation({
     onSuccess: () => {
-      toast.success("Categoria criada.");
+      toast.success("Serviço adicionado ao funcionário.");
       void apiUtils.employee.getById.invalidate();
       setOpen(false);
       form.reset();

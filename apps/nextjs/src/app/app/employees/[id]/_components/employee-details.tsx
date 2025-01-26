@@ -33,7 +33,7 @@ export function EmployeeDetails() {
   const apiUtils = api.useUtils();
   const deleteMutation = api.employee.deleteEmployeeService.useMutation({
     onSuccess: () => {
-      toast.success("Serviço excluído");
+      toast.success("Serviço desvinculado do funcionário");
       void apiUtils.employee.getById.invalidate();
     },
   });
