@@ -4,7 +4,7 @@ import { z } from "zod";
 import { eq } from "@acme/db";
 import { db } from "@acme/db/client";
 import { services } from "@acme/db/schema";
-import { createStoreSchema } from "@acme/validators";
+import { createServiceSchema, updateServiceSchema } from "@acme/validators";
 
 import { protectedProcedure } from "../trpc";
 
@@ -18,7 +18,7 @@ export const serviceRoute = {
   }),
 
   create: protectedProcedure
-    .input(createStoreSchema)
+    .input(createServiceSchema)
     .mutation(async ({ input, ctx }) => {
       const [service] = await db
         .insert(services)
@@ -37,12 +37,38 @@ export const serviceRoute = {
       if (!service) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
-          message: "Failed to create store",
+          message: "Failed to create service",
         });
       }
 
       return service;
     }),
+
+  update: protectedProcedure
+    .input(
+      updateServiceSchema.extend({
+        serviceId: z.string(),
+      }),
+    )
+    .mutation(async ({ input }) => {
+      const [service] = await db
+        .update(services)
+        .set({ ...input })
+        .where(eq(services.id, input.serviceId))
+        .returning({
+          id: services.id,
+        });
+
+      if (!service) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to update service",
+        });
+      }
+
+      return service;
+    }),
+
   delete: protectedProcedure
     .input(z.object({ serviceId: z.string() }))
     .mutation(async ({ input }) => {

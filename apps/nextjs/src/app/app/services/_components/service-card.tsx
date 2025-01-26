@@ -1,22 +1,23 @@
 import Image from "next/image";
 import { Clock, Edit, Trash2 } from "lucide-react";
 
-import type { Service } from "@acme/db/schema";
+import type { Category, Service } from "@acme/db/schema";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { UpdateServiceButton } from "./update-service-button";
 
 interface ServiceCardProps {
+  categories: Category[];
   service: Service;
-  onEdit: (service: Service) => void;
   onDelete: (id: string) => void;
   deleteIsPending: boolean;
 }
 
 export function ServiceCard({
+  categories,
   service,
-  onEdit,
   onDelete,
   deleteIsPending,
 }: ServiceCardProps) {
@@ -52,10 +53,12 @@ export function ServiceCard({
           </div>
         </div>
         <div className="flex justify-between">
-          <Button variant="outline" size="sm" onClick={() => onEdit(service)}>
-            <Edit className="mr-2 h-4 w-4" />
-            Editar
-          </Button>
+          <UpdateServiceButton categories={categories} service={service}>
+            <Button variant="outline" size="sm">
+              <Edit className="mr-2 h-4 w-4" />
+              Editar
+            </Button>
+          </UpdateServiceButton>
           <Button
             variant="destructive"
             size="sm"
