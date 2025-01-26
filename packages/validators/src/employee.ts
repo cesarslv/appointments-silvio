@@ -7,8 +7,15 @@ export const createEmployeeSchema = z.object({
   workingDays: z.string().optional(),
 });
 
-// name: string;
-// storeId: string;
-// role: string;
-// photo: string | null;
-// workingDays: string | null;
+export const updateEmployeeSchema = z.object({
+  name: z.string().optional(),
+  role: z.string().optional(),
+  photo: z.string().optional(),
+  workingDays: z.string().optional(),
+});
+
+export const createEmployeeServiceSchema = z.object({
+  commission: z.string(),
+  employeeId: z.string(),
+  serviceId: z.string(),
+});

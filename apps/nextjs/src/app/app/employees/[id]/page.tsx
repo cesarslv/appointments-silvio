@@ -11,6 +11,7 @@ export default async function Page({
   void api.employee.getById.prefetch({
     employeeId: id,
   });
+  void api.service.all.prefetch();
 
   return (
     <HydrateClient>

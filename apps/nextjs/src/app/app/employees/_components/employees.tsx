@@ -35,7 +35,7 @@ export function Employees() {
         <CreateEmployeeButton />
       </header>
 
-      <div className="mt-8 grid grid-cols-1 gap-6 px-8 pb-8 sm:grid-cols-2 md:grid-cols-3">
+      <div className="mt-6 grid grid-cols-1 gap-6 px-8 pb-8 sm:grid-cols-2 md:grid-cols-3">
         {employees.map((employee) => (
           <EmployeeCard key={employee.id} employee={employee} />
         ))}
