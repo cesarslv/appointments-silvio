@@ -23,6 +23,7 @@ export const servicesRelations = relations(services, ({ one, many }) => ({
   store: one(stores, {
     fields: [services.storeId],
     references: [stores.id],
+    relationName: "storeServices",
   }),
   category: one(categories, {
     fields: [services.storeId],

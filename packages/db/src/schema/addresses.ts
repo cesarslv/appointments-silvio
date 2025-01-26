@@ -19,6 +19,7 @@ export const addressesRelations = relations(addresses, ({ one }) => ({
   store: one(stores, {
     fields: [addresses.storeId],
     references: [stores.id],
+    relationName: "storeAddresses",
   }),
 }));
 

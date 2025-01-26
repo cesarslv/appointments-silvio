@@ -19,6 +19,7 @@ export const employeesRelations = relations(employees, ({ one, many }) => ({
   store: one(stores, {
     fields: [employees.storeId],
     references: [stores.id],
+    relationName: "storeEmployees",
   }),
   appointments: many(appointments, { relationName: "employeeAppointments" }),
   employeeServices: many(employeeServices),

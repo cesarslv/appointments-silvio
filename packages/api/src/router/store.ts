@@ -6,7 +6,7 @@ import { db } from "@acme/db/client";
 import { stores } from "@acme/db/schema";
 import { updateStoreSchema } from "@acme/validators";
 
-import { protectedProcedure } from "../trpc";
+import { protectedProcedure, publicProcedure } from "../trpc";
 
 export const storeRoute = {
   getByUserId: protectedProcedure.query(async ({ ctx }) => {
@@ -23,6 +23,33 @@ export const storeRoute = {
 
     return org;
   }),
+
+  getBySlug: publicProcedure
+    .input(
+      z.object({
+        slug: z.string(),
+      }),
+    )
+    .query(async ({ input }) => {
+      const org = await db.query.stores.findFirst({
+        where: (table, { eq }) => eq(table.slug, input.slug),
+        with: {
+          services: {
+            with: {
+              category: {
+                columns: {
+                  name: true,
+                },
+              },
+            },
+          },
+          employees: true,
+          addresses: true,
+        },
+      });
+
+      return org;
+    }),
 
   getById: protectedProcedure
     .input(z.object({ storeId: z.string() }))
