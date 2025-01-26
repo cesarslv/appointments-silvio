@@ -12,6 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { api } from "@/trpc/react";
+import { UpdateStoreAppaerance } from "./update-store-appareance";
 import { UpdateStoreForm } from "./update-store-form";
 
 export function Store() {
@@ -40,7 +41,7 @@ export function Store() {
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbItem>
                 <BreadcrumbPage>Loja</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -67,7 +68,9 @@ export function Store() {
           </div>
         </TabsContent>
 
-        <TabsContent value="appareance">appareance</TabsContent>
+        <TabsContent value="appareance">
+          <UpdateStoreAppaerance currentTheme={store.theme} />
+        </TabsContent>
       </Tabs>
     </>
   );

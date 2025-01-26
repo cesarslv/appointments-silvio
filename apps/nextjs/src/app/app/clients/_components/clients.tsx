@@ -35,7 +35,7 @@ export default function Clients() {
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbItem>
                 <BreadcrumbPage>Clientes</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
@@ -57,7 +57,7 @@ export default function Clients() {
           />
         ))}
 
-        {clientsEmpty ? "Nenhum funcionário cadastrado" : null}
+        {clientsEmpty ? "Nenhum cliente cadastrado" : null}
       </div>
     </>
   );

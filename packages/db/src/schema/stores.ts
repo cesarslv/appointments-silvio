@@ -15,7 +15,7 @@ export const stores = pgTable("stores", {
   name: text("name").notNull(),
   slug: text("slug").unique().notNull(),
   logo: text("logo"),
-
+  theme: text("theme").notNull().default("blue"),
   userId: text("user_id")
     .notNull()
     .references(() => users.id),

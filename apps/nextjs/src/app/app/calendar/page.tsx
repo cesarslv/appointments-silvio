@@ -17,7 +17,7 @@ export default function Page() {
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbItem>
                 <BreadcrumbPage>Agenda</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>

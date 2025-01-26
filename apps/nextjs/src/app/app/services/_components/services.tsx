@@ -67,7 +67,7 @@ export function Services() {
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbItem>
                 <BreadcrumbPage>Serviços</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>

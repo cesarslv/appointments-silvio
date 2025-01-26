@@ -51,7 +51,7 @@ export function EmployeeDetails() {
                   Funcionários
                 </BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbSeparator />
               <BreadcrumbItem>
                 <BreadcrumbPage>{employee.name}</BreadcrumbPage>
               </BreadcrumbItem>
@@ -62,7 +62,7 @@ export function EmployeeDetails() {
 
       <div className="mt-6 w-full px-8 pb-8">
         <Card className="max-w-3xl">
-          <CardHeader className="flex flex-row items-center gap-4">
+          <CardHeader className="flex flex-col items-center gap-4 md:flex-row">
             <Avatar className="h-20 w-20">
               <AvatarImage
                 src={employee.photo ?? undefined}
@@ -136,7 +136,7 @@ function EmployeeServices({
       {items.map((item) => (
         <li
           key={item.id}
-          className="flex items-center justify-between rounded-md bg-secondary p-3"
+          className="flex flex-col items-center justify-between gap-4 rounded-md bg-secondary p-3 md:flex-row"
         >
           <div className="flex gap-2">
             <h1 className="font-semibold">Nome do serviço:</h1>

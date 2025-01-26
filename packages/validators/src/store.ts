@@ -7,6 +7,7 @@ export const updateStoreSchema = z.object({
     .max(50, "O nome pode ter no máximo 50 caracteres.")
     .optional(),
   logo: z.string().url("O logo deve ser uma URL válida.").optional(),
+  theme: z.string().optional(),
   slug: z
     .string()
     .regex(

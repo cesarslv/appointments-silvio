@@ -26,7 +26,7 @@ export function EmployeeCard({ employee }: EmployeeCardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button size={"sm"} className="w-full" asChild>
+        <Button size={"sm"} className="w-full" asChild variant={"outline"}>
           <Link href={`/app/employees/${employee.id}`}>Ver detalhes</Link>
         </Button>
       </CardFooter>

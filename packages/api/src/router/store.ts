@@ -105,6 +105,7 @@ export const storeRoute = {
         .set({
           name: input.name,
           logo: input.logo,
+          theme: input.theme,
           slug: input.slug,
         })
         .where(eq(stores.id, ctx.storeId))
