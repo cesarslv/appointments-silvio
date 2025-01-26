@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { date, pgTable, text, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 import { appointments } from "./appointments";
 import { stores } from "./stores";
@@ -8,7 +8,7 @@ export const clients = pgTable("clients", {
   id: uuid().notNull().primaryKey().defaultRandom(),
   name: text("name").notNull(),
   phone: text("phone").notNull(),
-  birthDate: date("birth_date").notNull(),
+  birthDate: timestamp("birth_date", { withTimezone: true }).notNull(),
   cpf: text("cpf"),
   email: text("email"),
   address: text("address"),

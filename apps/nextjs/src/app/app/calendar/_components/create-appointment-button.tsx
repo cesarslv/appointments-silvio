@@ -31,7 +31,7 @@ import { api } from "@/trpc/react";
 
 type Inputs = z.infer<typeof createCategorySchema>;
 
-export function CreateCategoryButton() {
+export function CreateAppointmentButton() {
   const [open, setOpen] = React.useState(false);
 
   // react-hook-form
@@ -60,15 +60,9 @@ export function CreateCategoryButton() {
   }
 
   return (
-    <Dialog
-      open={open}
-      onOpenChange={() => {
-        form.reset();
-        return setOpen((prev) => !prev);
-      }}
-    >
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className="ml-auto mr-4">
-        <Button>Nova Categoria</Button>
+        <Button>Adicionar</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

@@ -81,7 +81,13 @@ export function CreateServiceButton({
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog
+      open={open}
+      onOpenChange={() => {
+        form.reset();
+        return setOpen((prev) => !prev);
+      }}
+    >
       <DialogTrigger asChild className="ml-auto mr-4">
         <Button>Novo Serviço</Button>
       </DialogTrigger>
